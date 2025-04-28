@@ -1,13 +1,20 @@
-const dotenv = require('dotenv');
+import dotenv from 'dotenv';
 dotenv.config();
-const cors = require('cors');
-const express = require('express');
+import cors from 'cors';
+import express from 'express';
 const app = express();
+import connectDB from './db/db.js';
+import userRoutes from './routes/user.routes.js';
+connectDB();
 
 app.use(cors());
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/users', userRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello world');
 });
 
-module.exports = app;
+export default app;
