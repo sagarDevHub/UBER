@@ -220,3 +220,155 @@ curl -X POST \
   "message": "Invalid email or password"
 }
 ```
+
+## Endpoint: GET /users/profile
+
+### Description
+
+This endpoint is used to retrieve the profile information of the authenticated user. The user must be logged in and provide a valid token to access this endpoint.
+
+### Request Headers
+
+The request must include the following header:
+
+```json
+{
+  "Authorization": "Bearer <JWT token>"
+}
+```
+
+### Response
+
+#### Success Response
+
+- **Status Code:** 200 OK
+- **Body:**
+
+```json
+{
+  "_id": "string",
+  "fullname": {
+    "firstname": "string",
+    "lastname": "string"
+  },
+  "email": "string"
+}
+```
+
+#### Error Responses
+
+- **Status Code:** 401 Unauthorized
+
+  - **Description:** Missing or invalid token.
+  - **Body:**
+
+  ```json
+  {
+    "message": "Authentication failed"
+  }
+  ```
+
+- **Status Code:** 500 Internal Server Error
+  - **Description:** An unexpected error occurred on the server.
+
+### Example Request
+
+```bash
+curl -X GET \
+  http://localhost:3000/users/profile \
+  -H 'Authorization: Bearer <JWT token>'
+```
+
+### Example Response
+
+#### Success
+
+```json
+{
+  "_id": "645a1b2c3d4e5f6789012345",
+  "fullname": {
+    "firstname": "John",
+    "lastname": "Doe"
+  },
+  "email": "john.doe@example.com"
+}
+```
+
+#### Error
+
+```json
+{
+  "message": "Authentication failed"
+}
+```
+
+## Endpoint: GET /users/logout
+
+### Description
+
+This endpoint is used to log out the authenticated user. It clears the authentication token from the client and blacklists the token on the server to prevent further use.
+
+### Request Headers
+
+The request must include the following header:
+
+```json
+{
+  "Authorization": "Bearer <JWT token>"
+}
+```
+
+### Response
+
+#### Success Response
+
+- **Status Code:** 200 OK
+- **Body:**
+
+```json
+{
+  "message": "Logged out"
+}
+```
+
+#### Error Responses
+
+- **Status Code:** 401 Unauthorized
+
+  - **Description:** Missing or invalid token.
+  - **Body:**
+
+  ```json
+  {
+    "message": "Authentication failed"
+  }
+  ```
+
+- **Status Code:** 500 Internal Server Error
+  - **Description:** An unexpected error occurred on the server.
+
+### Example Request
+
+```bash
+curl -X GET \
+  http://localhost:3000/users/logout \
+  -H 'Authorization: Bearer <JWT token>'
+```
+
+### Example Response
+
+#### Success
+
+```json
+{
+  "message": "Logged out"
+}
+```
+
+#### Error
+
+```json
+{
+  "message": "Authentication failed"
+}
+```
