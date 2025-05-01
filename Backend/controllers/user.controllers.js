@@ -12,8 +12,8 @@ export const registerUser = async (req, res, next) => {
   const { fullname, email, password } = req.body;
 
   const normalizedEmail = email.toLowerCase();
-  const existingUser = await userModel.findOne({ email: normalizedEmail });
-  if (existingUser) {
+  const isUserExist = await userModel.findOne({ email: normalizedEmail });
+  if (isUserExist) {
     return res.status(400).json({ message: `Email already registered.` });
   }
 
