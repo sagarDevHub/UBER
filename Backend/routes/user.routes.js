@@ -1,4 +1,3 @@
-import express from 'express';
 import { Router } from 'express';
 import {
   getUserProfile,
@@ -7,7 +6,7 @@ import {
   registerUser,
 } from '../controllers/user.controllers.js';
 import { body } from 'express-validator';
-import authUser from '../middleware/auth.middleware.js';
+import { authUser } from '../middleware/auth.middleware.js';
 const router = Router();
 
 // Register route
