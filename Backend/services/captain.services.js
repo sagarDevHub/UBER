@@ -1,42 +1,30 @@
 import captainModel from '../models/captain.model.js';
 
-const createCaptain = async ({
-  firstname,
-  lastname,
-  email,
-  password,
-  color,
-  plate,
-  capacity,
-  vehicleType,
-}) => {
+const createCaptain = async ({ firstname, lastname, email, password, vehicle }) => {
   if (
     !firstname ||
     !lastname ||
     !email ||
     !password ||
-    !color ||
-    !plate ||
-    !capacity ||
-    !vehicleType
+    !vehicle ||
+    !vehicle.color ||
+    !vehicle.plate ||
+    vehicle.capacity == null ||
+    !vehicle.vehicleType
   ) {
-    throw new Error(`All fields are required.`);
+    throw new Error('All fields are required.');
   }
 
-  const captain = captainModel.create({
+  const captain = await captainModel.create({
     fullname: {
       firstname,
       lastname,
     },
     email,
     password,
-    vehicle: {
-      color,
-      plate,
-      capacity,
-      vehicleType,
-    },
+    vehicle,
   });
+
   return captain;
 };
 
